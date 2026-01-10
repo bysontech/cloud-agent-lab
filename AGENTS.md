@@ -12,6 +12,7 @@ This repo is a small lab to practice "agent-driven development":
 3. Always run tests (or ensure CI runs) before claiming completion.
 4. No breaking changes without updating tests and docs.
 5. Prefer clarity over cleverness.
+6. Never push directly to `main`. All changes must go through Pull Requests. (main直push禁止)
 
 ## Definition of Done
 A task is done only when:
@@ -45,3 +46,30 @@ When you respond, include:
 - Files changed
 - How to verify (commands)
 - Any tradeoffs / assumptions
+
+---
+
+## Standard Agent Task Instruction (for humans / 日本語)
+
+以下は、本リポジトリでAIエージェントに作業させる際の標準指示テンプレです。
+
+この形式でIssue本文を貼り付けて使用してください。
+
+### テンプレ
+
+あなたは私のリポジトリ「cloud-agent-lab」で作業しています。
+
+最初に必ず AGENTS.md を読み、内容を厳守してください。
+
+以下の GitHub Issue を実装してください。
+
+要件:
+- 新しいブランチを作成すること
+- 変更をコミットすること
+- Pull Request を作成すること
+- CI が green であること
+- `npm test` が通ること
+
+--- ISSUE TEXT START ---
+（ここに Issue の本文を貼り付け）
+--- ISSUE TEXT END ---
