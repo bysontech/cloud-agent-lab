@@ -6,22 +6,22 @@ labels: ["agent-task"]
 ---
 
 ## Goal
-(What should be true after this task is done?)
+このタスクが完了したときに満たされているべき状態を書く
 
 ## Constraints
-- Keep changes small and reviewable
-- Follow AGENTS.md
-- Do not add secrets
+- 変更は小さく、レビュー可能な単位にする
+- AGENTS.md に従う
+- 秘密情報を追加しない
 
 ## Acceptance Criteria
-- [ ] `npm test` passes
-- [ ] CI is green
-- [ ] Code is readable and minimal
-- [ ] (If needed) docs updated
+- [ ] `npm test` が通る
+- [ ] CI が green
+- [ ] コードが簡潔で読みやすい
+- [ ] （必要なら）ドキュメント更新
 
 ## Steps / Notes
-(Any hints, files to touch, or non-goals)
+実装のヒント、触ってよい/悪いファイル、非目標など
 
 ## Files (optional)
-- target:
+- target: 
 - do not touch:
