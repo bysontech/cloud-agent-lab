@@ -1,0 +1,8 @@
+{
+  "name": "cloud-agent-lab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/sample.test.js"
+  }
+}
