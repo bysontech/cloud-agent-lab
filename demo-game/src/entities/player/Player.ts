@@ -14,7 +14,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     scene.physics.add.existing(this)
 
     // Setup physics
-    this.setCollideWorldBounds(true)
+    this.setCollideWorldBounds(true, 0, 0, true, true, true, false)
     this.setBounce(0)
     this.setGravityY(GameConfig.gravity)
 

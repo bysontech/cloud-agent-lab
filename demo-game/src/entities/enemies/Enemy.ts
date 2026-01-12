@@ -2,13 +2,27 @@ import Phaser from 'phaser'
 import { GameConfig } from '../../config'
 
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
-  private initialX: number
+  private leftBound: number
+  private rightBound: number
+  private direction: -1 | 1 = -1
   private movementRange: number = 150
 
-  constructor(scene: Phaser.Scene, x: number, y: number, type: 'walker' | 'flyer') {
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    type: 'walker' | 'flyer',
+    bounds?: { left: number; right: number }
+  ) {
     super(scene, x, y, `enemy-${type}`)
 
-    this.initialX = x
+    if (bounds) {
+      this.leftBound = bounds.left
+      this.rightBound = bounds.right
+    } else {
+      this.leftBound = x - this.movementRange
+      this.rightBound = x + this.movementRange
+    }
 
     scene.add.existing(this)
     scene.physics.add.existing(this)
@@ -22,9 +36,6 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     // Create visual
     this.createVisual(type)
-
-    // Set initial velocity (moving left)
-    this.setVelocityX(-GameConfig.enemySpeed)
   }
 
   private createVisual(type: 'walker' | 'flyer'): void {
@@ -49,11 +60,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(): void {
-    // Simple back-and-forth movement
-    const distanceFromStart = Math.abs(this.x - this.initialX)
-
-    if (distanceFromStart > this.movementRange) {
-      this.setVelocityX(-this.body!.velocity.x)
+    if (this.x <= this.leftBound) {
+      this.direction = 1
+    } else if (this.x >= this.rightBound) {
+      this.direction = -1
     }
+
+    this.setVelocityX(this.direction * GameConfig.enemySpeed)
   }
 }

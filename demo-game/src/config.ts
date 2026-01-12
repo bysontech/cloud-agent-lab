@@ -1,5 +1,3 @@
-import Phaser from 'phaser'
-
 export const GameConfig = {
   width: 800,
   height: 600,

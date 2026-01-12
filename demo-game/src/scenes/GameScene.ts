@@ -18,6 +18,7 @@ export class GameScene extends Phaser.Scene {
   private currentLevel: number = 1
   private levelData!: LevelData
   private restartKey!: Phaser.Input.Keyboard.Key
+  private isLevelTransitioning: boolean = false
 
   private levels: LevelData[] = [level1, level2, level3, level4, level5]
 
@@ -39,6 +40,7 @@ export class GameScene extends Phaser.Scene {
     if (this.platforms) this.platforms.clear(true, true)
     if (this.goal) this.goal.destroy()
 
+    this.isLevelTransitioning = false
     this.currentLevel = levelNumber
     this.levelData = this.levels[levelNumber - 1]
 
@@ -55,8 +57,8 @@ export class GameScene extends Phaser.Scene {
         platform.height,
         0x8B4513
       )
+      this.physics.add.existing(rect, true)
       this.platforms.add(rect)
-      rect.body.updateFromGameObject()
     })
 
     // Create player
@@ -69,7 +71,14 @@ export class GameScene extends Phaser.Scene {
     // Create enemies
     this.enemies = this.physics.add.group()
     this.levelData.enemies.forEach((enemyData) => {
-      const enemy = new Enemy(this, enemyData.x, enemyData.y, enemyData.type)
+      const bounds = this.getEnemyBounds(enemyData.x, enemyData.y)
+      const enemy = new Enemy(
+        this,
+        enemyData.x,
+        enemyData.y,
+        enemyData.type,
+        bounds
+      )
       this.enemies.add(enemy)
     })
 
@@ -102,6 +111,7 @@ export class GameScene extends Phaser.Scene {
     this.hud.updateLives(this.player.getLives())
 
     // Setup camera
+    this.physics.world.setBounds(0, 0, 800, 900)
     this.cameras.main.setBounds(0, 0, 800, 600)
     this.cameras.main.startFollow(this.player, true, 0.1, 0.1)
   }
@@ -109,7 +119,7 @@ export class GameScene extends Phaser.Scene {
   private createGoal(): void {
     const graphics = this.make.graphics({ x: 0, y: 0 }, false)
     graphics.fillStyle(0xFFD700, 1)
-    graphics.fillStar(16, 16, 5, 16, 8, 0)
+    graphics.fillCircle(16, 16, 12)
     graphics.generateTexture('goal', 32, 32)
     graphics.destroy()
 
@@ -129,10 +139,45 @@ export class GameScene extends Phaser.Scene {
     })
   }
 
+  private getEnemyBounds(
+    enemyX: number,
+    enemyY: number
+  ): { left: number; right: number } | undefined {
+    const enemyHalfWidth = 16
+    const enemyHeight = 32
+    const targetY = enemyY + enemyHeight
+    const tolerance = 18
+
+    const platform = this.levelData.platforms.find((candidate) => {
+      const withinX =
+        enemyX >= candidate.x && enemyX <= candidate.x + candidate.width
+      const withinY = Math.abs(candidate.y - targetY) <= tolerance
+      return withinX && withinY
+    })
+
+    if (!platform) {
+      return undefined
+    }
+
+    return {
+      left: platform.x + enemyHalfWidth,
+      right: platform.x + platform.width - enemyHalfWidth,
+    }
+  }
+
   private handlePlayerEnemyCollision(
-    player: Phaser.GameObjects.GameObject,
-    enemy: Phaser.GameObjects.GameObject
+    player:
+      | Phaser.Types.Physics.Arcade.GameObjectWithBody
+      | Phaser.Physics.Arcade.Body
+      | Phaser.Physics.Arcade.StaticBody
+      | Phaser.Tilemaps.Tile,
+    enemy:
+      | Phaser.Types.Physics.Arcade.GameObjectWithBody
+      | Phaser.Physics.Arcade.Body
+      | Phaser.Physics.Arcade.StaticBody
+      | Phaser.Tilemaps.Tile
   ): void {
+    void enemy
     const playerSprite = player as Player
     const isDead = playerSprite.takeDamage()
 
@@ -151,6 +196,13 @@ export class GameScene extends Phaser.Scene {
   }
 
   private handleGoalReached(): void {
+    if (this.isLevelTransitioning) {
+      return
+    }
+
+    this.isLevelTransitioning = true
+    this.goal.disableBody(true, true)
+
     // Disable player control
     this.player.setActive(false)
 

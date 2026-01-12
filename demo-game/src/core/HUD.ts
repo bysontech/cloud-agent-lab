@@ -1,13 +1,10 @@
 import Phaser from 'phaser'
 
 export class HUD {
-  private scene: Phaser.Scene
   private livesText: Phaser.GameObjects.Text
   private levelText: Phaser.GameObjects.Text
 
   constructor(scene: Phaser.Scene) {
-    this.scene = scene
-
     // Create HUD elements
     this.levelText = scene.add.text(16, 16, '', {
       fontSize: '24px',
