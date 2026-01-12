@@ -30,14 +30,14 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 to-emerald-50 dark:from-slate-900 dark:to-slate-800">
       {/* Header */}
-      <header className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
+      <header className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-lg">
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 tracking-tight">
             Your Name
           </h1>
-          <p className="text-xl md:text-2xl text-blue-100 font-light">
+          <p className="text-xl md:text-2xl text-emerald-100 font-light">
             Software Engineer / Developer
           </p>
         </div>
@@ -48,7 +48,7 @@ export default function Home() {
         {/* About Section */}
         <section id="about" className="mb-16">
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 md:p-12 border border-slate-200 dark:border-slate-700">
-            <h2 className="text-4xl font-bold mb-6 text-slate-800 dark:text-white border-b-4 border-blue-500 pb-3 inline-block">
+            <h2 className="text-4xl font-bold mb-6 text-slate-800 dark:text-white border-b-4 border-emerald-500 pb-3 inline-block">
               About
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -59,7 +59,7 @@ export default function Home() {
 
         {/* Projects Section */}
         <section id="projects" className="mb-16">
-          <h2 className="text-4xl font-bold mb-8 text-slate-800 dark:text-white border-b-4 border-blue-500 pb-3 inline-block">
+          <h2 className="text-4xl font-bold mb-8 text-slate-800 dark:text-white border-b-4 border-emerald-500 pb-3 inline-block">
             Projects
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -68,7 +68,7 @@ export default function Home() {
                 key={index}
                 className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-slate-200 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group"
               >
-                <h3 className="text-2xl font-bold mb-3 text-slate-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <h3 className="text-2xl font-bold mb-3 text-slate-800 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
@@ -78,7 +78,7 @@ export default function Home() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                  className="inline-flex items-center text-emerald-700 dark:text-emerald-400 font-semibold hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors"
                 >
                   View Project
                   <svg
@@ -102,14 +102,14 @@ export default function Home() {
 
         {/* Skills Section */}
         <section id="skills" className="mb-16">
-          <h2 className="text-4xl font-bold mb-8 text-slate-800 dark:text-white border-b-4 border-blue-500 pb-3 inline-block">
+          <h2 className="text-4xl font-bold mb-8 text-slate-800 dark:text-white border-b-4 border-emerald-500 pb-3 inline-block">
             Skills
           </h2>
           <div className="flex flex-wrap gap-3">
             {skills.map((skill, index) => (
               <span
                 key={index}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-default"
+                className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-full font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-default"
               >
                 {skill}
               </span>
