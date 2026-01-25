@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { lotteryApi } from '../api/lottery';
-import { DuplicateNicknameError } from '../types/api';
-import type { LotteryStatus as LotteryStatusType } from '../types/api';
-import { LotteryStatus } from '../components/LotteryStatus';
-import { usePolling } from '../hooks/usePolling';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { lotteryApi } from "../api/lottery";
+import { DuplicateNicknameError } from "../types/api";
+import type { LotteryStatus as LotteryStatusType } from "../types/api";
+import { LotteryStatus } from "../components/LotteryStatus";
+import { usePolling } from "../hooks/usePolling";
 
 export function JoinPage() {
   const { roomId } = useParams<{ roomId: string }>();
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,7 +25,9 @@ export function JoinPage() {
       setStatus(data);
       setStatusError(null);
     } catch (err) {
-      setStatusError(err instanceof Error ? err.message : 'Failed to fetch status');
+      setStatusError(
+        err instanceof Error ? err.message : "Failed to fetch status",
+      );
     } finally {
       setIsLoadingStatus(false);
     }
@@ -37,7 +39,7 @@ export function JoinPage() {
     e.preventDefault();
 
     if (!nickname.trim() || !roomId) {
-      setError('Nickname is required');
+      setError("Nickname is required");
       return;
     }
 
@@ -49,9 +51,9 @@ export function JoinPage() {
       setIsRegistered(true);
     } catch (err) {
       if (err instanceof DuplicateNicknameError) {
-        setError('This nickname is already taken. Please choose another one.');
+        setError("This nickname is already taken. Please choose another one.");
       } else {
-        setError(err instanceof Error ? err.message : 'Failed to register');
+        setError(err instanceof Error ? err.message : "Failed to register");
       }
     } finally {
       setIsSubmitting(false);
@@ -66,7 +68,9 @@ export function JoinPage() {
     return (
       <div className="join-page">
         <h1>Lottery Room: {roomId}</h1>
-        <p>Registered as: <strong>{nickname}</strong></p>
+        <p>
+          Registered as: <strong>{nickname}</strong>
+        </p>
         <LotteryStatus
           status={status}
           isLoading={isLoadingStatus}
@@ -98,7 +102,7 @@ export function JoinPage() {
         {error && <div className="error-message">{error}</div>}
 
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Registering...' : 'Register'}
+          {isSubmitting ? "Registering..." : "Register"}
         </button>
       </form>
     </div>
