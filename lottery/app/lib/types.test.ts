@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { DuplicateNicknameError } from './api';
+import { DuplicateNicknameError } from './types';
 
 describe('DuplicateNicknameError', () => {
   it('should create error with default message', () => {

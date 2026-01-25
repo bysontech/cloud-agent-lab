@@ -1,17 +1,19 @@
-export type Phase = 'waiting' | 'running' | 'finished';
+export type LotteryPhase = 'waiting' | 'running' | 'finished';
 
 export interface Entry {
   id: string;
   nickname: string;
 }
 
+export interface LotteryResult {
+  winnerId: string;
+  winnerNickname: string;
+}
+
 export interface LotteryStatus {
-  phase: Phase;
+  phase: LotteryPhase;
   entries: Entry[];
-  result?: {
-    winnerId: string;
-    winnerNickname: string;
-  };
+  result?: LotteryResult;
 }
 
 export interface RegisterRequest {
@@ -24,7 +26,7 @@ export interface RegisterResponse {
 }
 
 export class DuplicateNicknameError extends Error {
-  constructor(message: string = 'Nickname already exists') {
+  constructor(message = 'Nickname already exists') {
     super(message);
     this.name = 'DuplicateNicknameError';
   }
