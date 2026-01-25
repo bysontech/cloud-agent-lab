@@ -4,7 +4,8 @@ import { createMiddleware } from 'hono/factory'
  * Middleware to handle .html extension redirects
  * Redirects /path.html to /path with 301 (permanent redirect)
  */
-export default createMiddleware(async (c, next) => {
+export default [
+  createMiddleware(async (c, next) => {
   const path = new URL(c.req.url).pathname
 
   // Redirect .html URLs to clean URLs
@@ -15,4 +16,5 @@ export default createMiddleware(async (c, next) => {
   }
 
   await next()
-})
+  }),
+]
