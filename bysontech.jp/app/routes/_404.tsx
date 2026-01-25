@@ -1,5 +1,5 @@
 import { NotFoundHandler } from 'hono'
-import { SITE } from '@/lib/constants'
+import { SITE } from '@/lib/site'
 
 const handler: NotFoundHandler = (c) => {
   return c.render(

@@ -1,5 +1,6 @@
 import { createRoute } from 'honox/factory'
-import { SITE, HERO, SERVICES, ABOUT, CONTACT } from '@/lib/constants'
+import { SITE } from '@/lib/site'
+import { HERO, SERVICES, ABOUT, CONTACT } from '@/lib/pages/home'
 
 export default createRoute((c) => {
   return c.render(

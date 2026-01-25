@@ -1,11 +1,11 @@
-import { jsxRenderer, useRequestContext } from 'hono/jsx-renderer'
-import { Style } from 'hono/css'
-import { SITE, NAV, FOOTER } from '@/lib/constants'
+import { jsxRenderer, useRequestContext } from "hono/jsx-renderer";
+import { Style } from "hono/css";
+import { SITE, NAV, FOOTER } from "@/lib/site";
 
 export default jsxRenderer(({ children, title, description, ogImage }) => {
-  const pageTitle = title ? `${title} | ${SITE.name}` : SITE.name
-  const pageDescription = description || SITE.description
-  const pageOgImage = ogImage || `${SITE.url}/og-image.png`
+  const pageTitle = title ? `${title} | ${SITE.name}` : SITE.name;
+  const pageDescription = description || SITE.description;
+  const pageOgImage = ogImage || `${SITE.url}/og-image.png`;
 
   return (
     <html lang="ja">
@@ -36,11 +36,20 @@ export default jsxRenderer(({ children, title, description, ogImage }) => {
 
         {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin=""
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
 
         {/* Tailwind CSS - inlined for SSR */}
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
           /* Base Tailwind styles */
           *, ::before, ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
           html { line-height: 1.5; -webkit-text-size-adjust: 100%; font-feature-settings: normal; font-variation-settings: normal; -webkit-tap-highlight-color: transparent; }
@@ -233,7 +242,9 @@ export default jsxRenderer(({ children, title, description, ogImage }) => {
 
           /* Smooth scroll */
           html { scroll-behavior: smooth; }
-        ` }} />
+        `,
+          }}
+        />
       </head>
       <body class="min-h-screen bg-white font-sans">
         {/* Header */}
@@ -246,13 +257,22 @@ export default jsxRenderer(({ children, title, description, ogImage }) => {
 
               {/* Desktop Navigation */}
               <div class="hidden items-center gap-8 md:flex">
-                <a href="/" class="text-sm font-medium text-gray-600 transition-colors hover:text-primary-600">
+                <a
+                  href="/"
+                  class="text-sm font-medium text-gray-600 transition-colors hover:text-primary-600"
+                >
                   {NAV.home}
                 </a>
-                <a href="/#services" class="text-sm font-medium text-gray-600 transition-colors hover:text-primary-600">
+                <a
+                  href="/#services"
+                  class="text-sm font-medium text-gray-600 transition-colors hover:text-primary-600"
+                >
                   {NAV.services}
                 </a>
-                <a href="/#about" class="text-sm font-medium text-gray-600 transition-colors hover:text-primary-600">
+                <a
+                  href="/#about"
+                  class="text-sm font-medium text-gray-600 transition-colors hover:text-primary-600"
+                >
                   {NAV.about}
                 </a>
                 <a href="/#contact" class="btn-primary text-sm">
@@ -267,14 +287,27 @@ export default jsxRenderer(({ children, title, description, ogImage }) => {
                 aria-label="メニューを開く"
                 onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
               >
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
             </div>
 
             {/* Mobile Navigation */}
-            <div id="mobile-menu" class="hidden border-t border-gray-100 py-4 md:hidden">
+            <div
+              id="mobile-menu"
+              class="hidden border-t border-gray-100 py-4 md:hidden"
+            >
               <div class="flex flex-col gap-4">
                 <a href="/" class="text-sm font-medium text-gray-600">
                   {NAV.home}
@@ -294,9 +327,7 @@ export default jsxRenderer(({ children, title, description, ogImage }) => {
         </header>
 
         {/* Main Content */}
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
 
         {/* Footer */}
         <footer class="border-t border-gray-100 bg-gray-50">
@@ -306,17 +337,12 @@ export default jsxRenderer(({ children, title, description, ogImage }) => {
                 <a href="/" class="text-lg font-bold text-gray-900">
                   {SITE.name}
                 </a>
-                <a href="/sharelist/privacy" class="text-sm text-gray-500 hover:text-gray-700">
-                  {FOOTER.links.privacy}
-                </a>
               </div>
-              <p class="text-sm text-gray-500">
-                {FOOTER.copyright}
-              </p>
+              <p class="text-sm text-gray-500">{FOOTER.copyright}</p>
             </div>
           </div>
         </footer>
       </body>
     </html>
-  )
-})
+  );
+});

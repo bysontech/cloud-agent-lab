@@ -1,9 +1,5 @@
 import { createRoute } from 'honox/factory'
-
-const DELETE_INFO = {
-  title: 'アカウント削除のリクエスト（ShareList）',
-  lastUpdated: '2026-01-25'
-} as const
+import { SHARELIST_DELETE, SHARELIST_META } from '@/lib/pages/sharelist'
 
 export default createRoute((c) => {
   return c.render(
@@ -12,10 +8,10 @@ export default createRoute((c) => {
         <article class="mx-auto max-w-3xl">
           <header class="mb-10 border-b border-gray-200 pb-8">
             <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
-              {DELETE_INFO.title}
+              {SHARELIST_DELETE.title}
             </h1>
             <p class="mt-4 text-sm text-gray-500">
-              ShareListのアカウントおよび関連データの削除を希望される場合は、以下の手順で削除リクエストを送信してください。
+              {SHARELIST_DELETE.intro}
             </p>
           </header>
 
@@ -23,24 +19,25 @@ export default createRoute((c) => {
             <section class="mb-10">
               <h2 class="mb-4 text-lg font-semibold text-gray-900">削除できるもの</h2>
               <ul class="text-gray-600 leading-relaxed">
-                <li>アカウント（アプリ内で使用される識別子・認証情報）</li>
-                <li>ユーザーが作成したリスト・アイテム・グループなどのデータ（アカウントに紐づくもの）</li>
+                {SHARELIST_DELETE.deletableItems.map((item) => (
+                  <li>{item}</li>
+                ))}
               </ul>
             </section>
 
             <section class="mb-10">
               <h2 class="mb-4 text-lg font-semibold text-gray-900">削除リクエスト方法</h2>
               <div class="rounded-lg border border-gray-200 bg-gray-50 px-6 py-4 text-gray-600 leading-relaxed">
-                <p>次の情報を添えて、下記メールアドレスへご連絡ください。</p>
+                <p>{SHARELIST_DELETE.request.intro}</p>
                 <ul class="mt-3">
-                  <li>件名：ShareList アカウント削除依頼</li>
-                  <li>本文に記載する情報：端末ID（サポート用）</li>
+                  <li>{SHARELIST_DELETE.request.subject}</li>
+                  <li>本文に記載する情報：{SHARELIST_DELETE.request.details[0]}</li>
                 </ul>
                 <p class="mt-4">
-                  連絡先メール：<a class="text-primary-600 hover:text-primary-700" href="mailto:support@bysontech.jp">support@bysontech.jp</a>
+                  連絡先メール：<a class="text-primary-600 hover:text-primary-700" href={`mailto:${SHARELIST_META.supportEmail}`}>{SHARELIST_META.supportEmail}</a>
                 </p>
                 <p class="mt-4 text-sm text-gray-500">
-                  ※ 不正な削除依頼を防止するため、アプリ内の情報と照合できる追加情報の提示をお願いする場合があります。
+                  {SHARELIST_DELETE.request.note}
                 </p>
               </div>
             </section>
@@ -48,18 +45,18 @@ export default createRoute((c) => {
             <section class="mb-10">
               <h2 class="mb-4 text-lg font-semibold text-gray-900">処理にかかる時間</h2>
               <p class="text-gray-600 leading-relaxed">
-                削除リクエストを確認後、原則として<strong>7日以内</strong>に削除処理を行います。<br />
-                （混雑状況により前後することがあります）
+                {SHARELIST_DELETE.processing.lead}<strong>{SHARELIST_DELETE.processing.highlight}</strong>{SHARELIST_DELETE.processing.trailing}<br />
+                {SHARELIST_DELETE.processing.note}
               </p>
             </section>
 
             <section class="mb-10">
               <h2 class="mb-4 text-lg font-semibold text-gray-900">削除後の取り扱い</h2>
               <ul class="text-gray-600 leading-relaxed">
-                <li>削除が完了すると、同じデータを元に戻すことはできません。</li>
+                <li>{SHARELIST_DELETE.afterDelete.items[0]}</li>
                 <li>
-                  法令遵守や不正対策のため、最小限のログ情報を一定期間保持する場合があります。<br />
-                  <span class="text-sm text-gray-500">（例：障害対応・不正アクセス調査に必要な範囲）</span>
+                  {SHARELIST_DELETE.afterDelete.items[1]}<br />
+                  <span class="text-sm text-gray-500">{SHARELIST_DELETE.afterDelete.note}</span>
                 </li>
               </ul>
             </section>
@@ -67,7 +64,7 @@ export default createRoute((c) => {
             <section>
               <h2 class="mb-4 text-lg font-semibold text-gray-900">補足</h2>
               <p class="text-gray-600 leading-relaxed">
-                ShareListはアプリ内でゲスト方式の利用が可能ですが、削除を希望される場合は上記の方法でご連絡ください。
+                {SHARELIST_DELETE.supplement}
               </p>
             </section>
           </div>
@@ -82,7 +79,7 @@ export default createRoute((c) => {
               </a>
             </div>
             <p class="mt-4 text-sm text-gray-500">
-              最終更新日: {DELETE_INFO.lastUpdated}
+              最終更新日: {SHARELIST_DELETE.lastUpdated}
             </p>
           </footer>
         </article>
@@ -90,7 +87,7 @@ export default createRoute((c) => {
     </section>,
     {
       title: 'ShareList アカウント削除のリクエスト',
-      description: 'ShareListのアカウント削除に関する手続きと必要事項をご案内します。'
+      description: SHARELIST_DELETE.description
     }
   )
 })
