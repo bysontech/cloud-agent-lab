@@ -3,8 +3,8 @@ import type {
   LotteryStatus,
   RegisterRequest,
   RegisterResponse,
-} from '../types/api';
-import { DuplicateNicknameError } from '../types/api';
+} from './types';
+import { DuplicateNicknameError } from './types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
